@@ -1,0 +1,809 @@
+<html>
+
+<head>
+	<style>
+		.bg-image {
+  /* background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_XqGGOMDqCmLPm2q_yCyXan8gLE6do_O2wQ&usqp=CAU'); */
+  background-size: cover;
+  background-position: center;
+  /* height: 100vh; */
+}
+	</style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+    integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+    integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+    crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
+</head>
+
+<body onload="connectMetamask(),connectContract(),readWord()">
+	<nav class="navbar navbar-light bg-primary fixed-top">
+		<div class="container-fluid">
+		  <a class="navbar-brand" href="#" style="color: antiquewhite;"><h1>VENDOR 2</h1></a>
+		  <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+			<div class="offcanvas-header">
+				<a class="offcanvas-title" id="offcanvasNavbarLabel" href="index.html"><h5>HOME</h5></a>
+			  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			</div>
+			<div class="offcanvas-body">
+			  <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+				<li class="nav-item">
+				  <a class="nav-link active" href="rough.html">BUYER</a>
+				</li>
+				<!-- <li class="nav-item">
+				  <a class="nav-link active" href="odersplaced.html">REQUESTS</a>
+				</li> -->
+				
+				  <li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					  VENDORS
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
+					  <li><a class="dropdown-item"  href="expman1.html">VENDOR 1</a></li>
+					  <li><a class="dropdown-item" href="man2.html">VENDOR 2</a></li>
+					  
+					</ul>
+				  </li>
+				<!-- <li class="nav-item dropdown">
+				  <a class="nav-link dropdown-toggle" href="#" id="offcanvasNavbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					Dropdown
+				  </a>
+				  <ul class="dropdown-menu" aria-labelledby="offcanvasNavbarDropdown">
+					<li><a class="dropdown-item" href="#">Action</a></li>
+					<li><a class="dropdown-item" href="#">Another action</a></li>
+					<li>
+					  <hr class="dropdown-divider">
+					</li>
+					<li><a class="dropdown-item" href="#">Something else here</a></li>
+				  </ul>
+				</li> -->
+			  </ul>
+			  <!-- <form class="d-flex">
+				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success" type="submit">Search</button>
+			  </form> -->
+			</div>
+		  </div>
+		</div>
+	  </nav>
+	  <div class="bg-image">
+	  <div class="container text-center">
+		<div class="row">
+		  <div class="col">
+			1 of 3
+		  </div>
+		  <div class="col-6">
+			<br>
+			<br>
+			<br>
+			<br>
+			<h1 >VENDOR 2:</h1>
+			<!-- <h4>Please set the prices for the following requests</h4> -->
+			<!-- <button onclick="connectMetamask()">CONNECT TO METAMASK</button> <br> -->
+  <p  id="accountArea">Connection Status: NOT CONNECTED to Metamask </p>
+
+  <!-- <button onclick="connectContract()">CONNECT TO CONTRACT</button> <br> -->
+  <p  id="contractArea">Connection Status: NOT CONNECTED to Smart Contract</p>
+
+  
+			<h6 >ORDER SUMMARY:</h6>
+
+  <!-- <input type="text" id="inputArea">  -->
+
+  <script>
+    let account;
+    const connectMetamask = async () => {
+      if (window.ethereum !== "undefined") {
+        const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+        account = accounts[0];
+        document.getElementById("accountArea").innerHTML = `Account is: ${account}`;
+      }
+
+    }
+
+    const connectContract = async () => {
+      const ABI = [
+	{
+		"inputs": [
+			{
+				"internalType": "string[][]",
+				"name": "a",
+				"type": "string[][]"
+			}
+		],
+		"name": "save",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string[][]",
+				"name": "a",
+				"type": "string[][]"
+			}
+		],
+		"name": "sendven1",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string[][]",
+				"name": "b",
+				"type": "string[][]"
+			}
+		],
+		"name": "to",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "arr",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "get_pairs",
+		"outputs": [
+			{
+				"internalType": "string[][]",
+				"name": "",
+				"type": "string[][]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "key_val_pairs",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "reven1",
+		"outputs": [
+			{
+				"internalType": "string[][]",
+				"name": "",
+				"type": "string[][]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "revto",
+		"outputs": [
+			{
+				"internalType": "string[][]",
+				"name": "",
+				"type": "string[][]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "showcount",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "tt",
+		"outputs": [
+			{
+				"internalType": "string[][]",
+				"name": "",
+				"type": "string[][]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "ven1",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "ven2",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "we",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
+      const Address = "0xBc5217dfeA59a5a17250dd6E12F38e067699cfAd";
+      window.web3 = await new Web3(window.ethereum);
+      window.contract = await new window.web3.eth.Contract(ABI, Address);
+      document.getElementById("contractArea").innerHTML = "Connection Status: Success";
+    }
+    const mod = async () => {
+
+    }
+    const readWord = async () => {
+      let z = 0;
+      let s = 0;
+      const ABI = [
+	{
+		"inputs": [
+			{
+				"internalType": "string[][]",
+				"name": "a",
+				"type": "string[][]"
+			}
+		],
+		"name": "save",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string[][]",
+				"name": "a",
+				"type": "string[][]"
+			}
+		],
+		"name": "sendven1",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string[][]",
+				"name": "b",
+				"type": "string[][]"
+			}
+		],
+		"name": "to",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "arr",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "get_pairs",
+		"outputs": [
+			{
+				"internalType": "string[][]",
+				"name": "",
+				"type": "string[][]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "key_val_pairs",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "reven1",
+		"outputs": [
+			{
+				"internalType": "string[][]",
+				"name": "",
+				"type": "string[][]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "revto",
+		"outputs": [
+			{
+				"internalType": "string[][]",
+				"name": "",
+				"type": "string[][]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "showcount",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "tt",
+		"outputs": [
+			{
+				"internalType": "string[][]",
+				"name": "",
+				"type": "string[][]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "ven1",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "ven2",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "we",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
+      const Address = "0xBc5217dfeA59a5a17250dd6E12F38e067699cfAd";
+      window.web3 = await new Web3(window.ethereum);
+      window.contract = await new window.web3.eth.Contract(ABI, Address);
+      var st = "";
+      var k;
+      let se = "";
+      let sf = "";
+      let qa = "";
+      let ta = "";
+      const data = await window.contract.methods.tt().call();
+      const count = await window.contract.methods.showcount().call();
+      console.log(count);
+      console.log(data);
+      if (s == 0) {
+        let su = 0;
+        k = count[0];
+        var k1 = 0;
+
+        var i1 = 0;
+        var ci = data.length;
+
+        let y = 0;
+        let i = 0;
+        let qr = "";
+        for (let i = 0; i < count.length; i++) {
+          st += `<div class="card" style="width: 35rem">
+        <div class="card-body" id="${i}2">
+          <h5 class="card-title">REQUEST ${i}</h5>
+          <table class="table" id="${i}1"> 
+            <thead>
+              <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Quantity</th>
+              </tr>
+            </thead>
+            <tbody >
+            </tbody>
+          </table>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${i}x">
+  Set Price
+</button>
+        </div>
+        </div><br>`;
+          qr += `
+        <div class="modal fade" id="${i}x" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="u" >
+          <table class="table" >
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+              </tr>
+              <tbody id="${i}3" >
+       
+              </tbody>
+            </thead>
+            
+          </table>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="ww()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+        
+          
+        `;
+        }
+        document.getElementById("1").innerHTML += st + qr;
+      
+        let x=0;
+        let r = 0;
+        var v = 0;
+        let z2 = 0;
+        while (ci != 0) {
+          let z1 = count[i1];
+          se = "";
+          sf = "";
+          qa = "";
+          let t="";
+
+          while (z1 != 0) {
+            let r2 = "";
+            let e1 = "";
+            sf += `<tr>
+                        
+                        <td>${data[k1][0]}</td>
+                        <td>${data[k1][1]}</td>
+                        </tr> `
+            qa += `<tr>
+                        <td>${data[k1][0]}</td>
+                        <td>${data[k1][1]}</td>
+                        <td><input type="number" placeholder="costperunit" id="${z2}7"></td>
+                    
+                        </tr>
+                `;
+            k1++;
+            z1--;
+            z2++;
+            
+          
+
+          }
+
+
+          console.log("qa", qa);
+
+          document.getElementById(`${v}3`).innerHTML += qa;
+         
+
+          v++;
+          ci -= count[i1];
+          
+
+          i1++;
+
+          document.getElementById(`${r}1`).innerHTML += sf;
+
+
+          r++;
+
+
+        }
+       
+        
+
+
+      }
+      s += 1;
+
+    }
+    const fi=[];
+    var fu;
+    const ww = async () =>{
+      fu=[];
+          let qai="";
+          let e1;
+          let suu=0;
+          let r1;
+          let t;
+          let y=0;
+          const count = await window.contract.methods.showcount().call();
+          const data = await window.contract.methods.tt().call();
+          for(let i=0;i<count.length;i++){
+            suu=0;
+           
+            for(let j=0;j<count[i];j++){
+              e1=document.getElementById(`${y}7`).value;
+              r1=`${data[y][1]}`;
+              t=e1*r1;
+              suu+=t;
+              console.log("tttt",t);
+              y++;
+            }
+            qai+=`
+      <tr>
+        <td>ORDER ${i}</td>
+          <td>${suu}</td>
+                </tr>
+    
+                  `
+          document.getElementById("eee").innerHTML=qai;
+          fu[i]=(["vendor2",`ORDER ${i}`,`${suu}`]);
+          console.log(fu);
+        }
+        
+        
+        }
+        var q=0;
+        const changeWord = async () =>{
+			
+			let account;
+			if(window.ethereum !== "undefined"){
+					const accounts = await ethereum.request({method: "eth_requestAccounts"});
+					account = accounts[0];
+					// document.getElementById("accountArea").innerHTML = `Account is: ${account}`;
+				}
+		// const myEntry = document.getElementById("usernameInput").value;
+		// const tt=document.getElementById("specificSizeSelect").value;
+		if(q==0){
+			await window.contract.methods.sendven1(fu).send({ from: account });
+			q+=1;
+		}
+		
+	} 
+        
+
+
+  </script>
+  <table class="table" >
+    <thead>
+      <tr>
+        <th scope="col">ORDER NUMBER</th>
+        <th scope="col">PRICE</th>
+      
+      </tr>
+    </thead>
+    <tbody id="eee">
+    </tbody>
+  </table>
+  
+  <div id="1">
+    <br>
+    <br>
+  </div>
+  <div id="11">
+    <br>
+    <br>
+  </div>
+  <button onclick="changeWord()" type="button" class="btn btn-primary">SEND QUOTE</button> <br><br><br><br>
+
+		  </div>
+		  <div class="col">
+			3 of 3
+		  </div>
+		</div>
+  
+	</div>
+
+
+</body>
+
+</html>
